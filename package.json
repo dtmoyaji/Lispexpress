@@ -1,0 +1,17 @@
+{
+  "name": "mini-scheme-node",
+  "version": "0.1.0",
+  "description": "Minimal Scheme interpreter skeleton for Node.js",
+  "main": "bin/run.js",
+  "scripts": {
+    "start": "node bin/run.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "lips": "1.0.0-beta.20"
+  }
+}
