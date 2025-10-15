@@ -20,8 +20,53 @@ try {
 }
 
 if (args.length === 0) {
-    // Start LIPS REPL
-    lips.repl();
+    // Start a minimal LIPS REPL using lips.exec()
+    const readline = require('readline');
+
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        prompt: 'lips> '
+    });
+
+    let buffer = '';
+    const promptMain = 'lips> ';
+    const promptCont = '... ';
+
+    rl.prompt();
+
+    rl.on('line', async (line) => {
+        buffer += line + '\n';
+        try {
+            // Check if input forms a complete S-expression list
+            const complete = (typeof lips.balanced_parenthesis === 'function')
+                ? lips.balanced_parenthesis(buffer)
+                : true;
+
+            if (complete) {
+                // Evaluate
+                try {
+                    const result = await lips.exec(buffer);
+                    if (result && result.value !== undefined) {
+                        console.log(result.value);
+                    }
+                } catch (err) {
+                    console.error('LIPS error:', err);
+                }
+                buffer = '';
+                rl.setPrompt(promptMain);
+            } else {
+                rl.setPrompt(promptCont);
+            }
+        } catch (err) {
+            console.error(err);
+            buffer = '';
+            rl.setPrompt(promptMain);
+        }
+        rl.prompt();
+    }).on('close', () => {
+        process.exit(0);
+    });
 } else {
     // Evaluate file
     const file = args[0];
