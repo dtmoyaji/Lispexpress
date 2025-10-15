@@ -39,6 +39,11 @@
   (define html (ejs:render "items-list" ctx))
   (res.send html)))
 
+;; ルート: ホームページ（主要ルートへのリンク一覧）
+(app.get "/" (lambda (req res)
+  (define html "<!doctype html>\n<html>\n<head><meta charset=\"utf-8\"><title>Lispexpress</title></head>\n<body>\n<h1>Lispexpress</h1>\n<p>Available routes:</p>\n<ul>\n  <li><a href=\"/server\">/server</a></li>\n  <li><a href=\"/user\">/user</a></li>\n  <li><a href=\"/admin\">/admin</a></li>\n  <li><a href=\"/items\">/items</a></li>\n  <li><a href=\"/styled\">/styled</a></li>\n  <li><a href=\"/styled-user\">/styled-user</a></li>\n  <li><a href=\"/styled-items\">/styled-items</a></li>\n  <li><a href=\"/demo\">/demo (browser LIPS)</a></li>\n  <li><a href=\"/styles.css\">/styles.css</a></li>\n</ul>\n</body>\n</html>")
+  (res.send html)))
+
 ;; 属性付きテンプレート
 (app.get "/styled" (lambda (req res)
   (define html (ejs:render "styled-page" "{}"))

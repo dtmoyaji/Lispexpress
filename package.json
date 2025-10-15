@@ -4,7 +4,7 @@
   "description": "Minimal Scheme interpreter skeleton for Node.js",
   "main": "bin/run.js",
   "scripts": {
-    "start": "node bin/run.js"
+    "start": "node bin/run.js lisp/express.lisp"
   },
   "author": "",
   "license": "MIT",
